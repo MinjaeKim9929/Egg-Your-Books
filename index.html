@@ -54,10 +54,16 @@
 
 		<script type="module" src="./app.js"></script>
 		<script>
+			// Check if service workers are supported
 			if ('serviceWorker' in navigator) {
 				window.addEventListener('load', () => {
+					const baseUrl =
+						window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost'
+							? ''
+							: '/Egg-Your-Books';
+
 					navigator.serviceWorker
-						.register('./service-worker.js')
+						.register(`${baseUrl}/service-worker.js`)
 						.then((registration) => {
 							console.log('ServiceWorker registration successful');
 						})
@@ -67,5 +73,6 @@
 				});
 			}
 		</script>
+		<script src="app.js"></script>
 	</body>
 </html>

@@ -50,15 +50,16 @@ const addLogBtn = document.getElementById('addLogBtn');
 
 addLogBtn.addEventListener('click', () => {
 	const log = {
-		book: bookInput,
-		author: authorInput,
-		rate: rate,
+		book: bookInput.value,
+		author: authorInput.value,
+		rate: getSelectedRating(),
 	};
-	if (log) {
+	if (log.book && log.author) {
 		const li = document.createElement('li');
-		li.textContent = `${log.book} ${log.author} ${log.rate}`;
+		li.textContent = `${log.book} by ${log.author} - ${log.rate} eggs`;
 		bookList.appendChild(li);
-		bookInput = '';
-		authorInput = '';
+		bookInput.value = '';
+		authorInput.value = '';
+		setSelectedRating(0);
 	}
 });
