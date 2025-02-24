@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="theme-color" content="#F9E28E" />
+		<link rel="stylesheet" href="style.css" />
+		<link rel="shortcut icon" href="assets/icons/egg-128.png" type="image/png" />
+		<title>Sign Up</title>
+
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-YY1ELN5NN2"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+			gtag('config', 'G-YY1ELN5NN2');
+		</script>
+	</head>
+	<body>
+		<div class="app-container">
+			<h1>Egg Your Books</h1>
+			<nav class="navbar">
+				<ul>
+					<li><a href="./index.html">Home</a></li>
+					<li><a href="./signin.html">Sign In</a></li>
+					<li><a href="./signup.html">Sign Up</a></li>
+				</ul>
+			</nav>
+			<main>
+				<div class="auth-container">
+					<h2>Create Account</h2>
+					<form id="signup-form">
+						<div class="form-group">
+							<label for="username">Username</label>
+							<input type="text" id="username" name="username" required />
+						</div>
+						<div class="form-group">
+							<label for="email">Email</label>
+							<input type="email" id="email" name="email" required />
+						</div>
+						<div class="form-group">
+							<label for="password">Password</label>
+							<input type="password" id="password" name="password" required />
+						</div>
+						<div class="form-group">
+							<label for="confirm-password">Confirm Password</label>
+							<input type="password" id="confirm-password" name="confirm-password" required />
+						</div>
+						<button type="submit" class="submit-btn">Sign Up</button>
+					</form>
+					<p class="auth-redirect">Already have an account? <a href="./signin.html">Sign in here</a></p>
+				</div>
+			</main>
+		</div>
+
+		<script type="module">
+			const sw = new URL('service-worker.js', import.meta.url);
+			if ('serviceWorker' in navigator) {
+				navigator.serviceWorker
+					.register(sw.href, {
+						scope: '/Egg-Your-Books/',
+					})
+					.then((reg) => console.log('Service Worker Registered'))
+					.catch((err) => console.error('Service Worker Error: ', err));
+			}
+
+			window.addEventListener('error', function (event) {
+				console.error('Error occurred:', event.message);
+			});
+		</script>
+		<script type="module" src="./app.js"></script>
+	</body>
+</html>
