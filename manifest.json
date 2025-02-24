@@ -1,0 +1,31 @@
+{
+	"name": "Egg Your Books",
+	"short_name": "EggBooks",
+	"description": "Rate and track your books with egg ratings",
+	"start_url": "./index.html",
+	"display": "standalone",
+	"background_color": "#fffde8",
+	"theme_color": "#F9E28E",
+	"icons": [
+		{
+			"src": "./assets/icons/egg-128.png",
+			"sizes": "128x128",
+			"type": "image/png"
+		},
+		{
+			"src": "./assets/icons/egg-512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		},
+		{
+			"src": "./assets/icons/fried-egg-128.png",
+			"sizes": "128x128",
+			"type": "image/png"
+		},
+		{
+			"src": "./assets/icons/fried-egg-512.png",
+			"sizes": "512x511",
+			"type": "image/png"
+		}
+	]
+}

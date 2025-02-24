@@ -41,3 +41,24 @@ function setSelectedRating(rating) {
 function getSelectedRating() {
 	return selectedRating;
 }
+
+const bookInput = document.getElementById('bookInput');
+const authorInput = document.getElementById('authorInput');
+const rate = getSelectedRating();
+const bookList = document.getElementById('book-list');
+const addLogBtn = document.getElementById('addLogBtn');
+
+addLogBtn.addEventListener('click', () => {
+	const log = {
+		book: bookInput,
+		author: authorInput,
+		rate: rate,
+	};
+	if (log) {
+		const li = document.createElement('li');
+		li.textContent = `${log.book} ${log.author} ${log.rate}`;
+		bookList.appendChild(li);
+		bookInput = '';
+		authorInput = '';
+	}
+});

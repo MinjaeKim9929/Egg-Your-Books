@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="style.css" />
 		<link rel="shortcut icon" href="assets/icons/egg-128.png" type="image/png" />
 		<title>Egg Your Books</title>
+		<link rel="manifest" href="manifest.json" />
 	</head>
 	<body>
 		<div class="app-container">
@@ -43,7 +44,7 @@
 								<img class="egg" data-value="5" src="./assets/icons/egg-128.png" alt="5 eggs" />
 							</div>
 						</div>
-						<button type="submit" class="submit-btn">Add Book Log</button>
+						<button type="submit" class="submit-btn" id="addLogBtn">Add Book Log</button>
 					</form>
 
 					<div id="book-list" class="book-list"></div>
@@ -51,6 +52,20 @@
 			</main>
 		</div>
 
-		<script type="module" src="/app.js"></script>
+		<script type="module" src="./app.js"></script>
+		<script>
+			if ('serviceWorker' in navigator) {
+				window.addEventListener('load', () => {
+					navigator.serviceWorker
+						.register('./service-worker.js')
+						.then((registration) => {
+							console.log('ServiceWorker registration successful');
+						})
+						.catch((err) => {
+							console.log('ServiceWorker registration failed: ', err);
+						});
+				});
+			}
+		</script>
 	</body>
 </html>
