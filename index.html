@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="theme-color" content="#F9E28E" />
+		<link rel="stylesheet" href="style.css" />
+		<link rel="shortcut icon" href="assets/icons/egg-128.png" type="image/png" />
+		<title>Egg Your Books</title>
+	</head>
+	<body>
+		<div class="app-container">
+			<h1>Egg Your Books</h1>
+			<nav class="navbar">
+				<ul>
+					<li><a href="./index.html">Home</a></li>
+					<li><a href="./signin.html">Sign In</a></li>
+					<li><a href="./signup.html">Sign Up</a></li>
+				</ul>
+			</nav>
+			<main>
+				<div id="guest-content" class="welcome-section">
+					<h2>Welcome to Egg Your Books!</h2>
+					<p class="welcome-text">
+						Please <a href="./signin.html">sign in</a> or <a href="./signup.html">create an account</a> to start rating
+						your books.
+					</p>
+				</div>
+
+				<div id="user-content" class="book-section">
+					<form class="addLogForm">
+						<div class="input-group">
+							<input type="text" id="bookInput" placeholder="Enter a book title" required />
+							<input type="text" id="authorInput" placeholder="Enter an author's name" required />
+						</div>
+						<div class="rating">
+							<p class="rating-label">Rate this book:</p>
+							<div class="egg-container">
+								<img class="egg" data-value="1" src="./assets/icons/egg-128.png" alt="1 egg" />
+								<img class="egg" data-value="2" src="./assets/icons/egg-128.png" alt="2 eggs" />
+								<img class="egg" data-value="3" src="./assets/icons/egg-128.png" alt="3 eggs" />
+								<img class="egg" data-value="4" src="./assets/icons/egg-128.png" alt="4 eggs" />
+								<img class="egg" data-value="5" src="./assets/icons/egg-128.png" alt="5 eggs" />
+							</div>
+						</div>
+						<button type="submit" class="submit-btn">Add Book Log</button>
+					</form>
+
+					<div id="book-list" class="book-list"></div>
+				</div>
+			</main>
+		</div>
+
+		<script type="module" src="/app.js"></script>
+	</body>
+</html>
