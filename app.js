@@ -1,3 +1,19 @@
+import { initializeApp } from 'firebase/app';
+import { doc, getDocs, addDoc, updateDoc, getFirestore, collection } from 'firebase/firestore';
+
+const firebaseConfig = {
+	apiKey: 'AIzaSyBv3223D49UTgNIlhbbqzCPfRKSGCO5GuU',
+	authDomain: 'egg-your-books.firebaseapp.com',
+	projectId: 'egg-your-books',
+	storageBucket: 'egg-your-books.firebasestorage.app',
+	messagingSenderId: '607247149052',
+	appId: '1:607247149052:web:6d6bef135729708d0cf479',
+	measurementId: 'G-ERJT4KZ0CE',
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 const eggs = document.querySelectorAll('.egg');
 
 eggs.forEach((egg) => {
@@ -42,21 +58,52 @@ function getSelectedRating() {
 	return selectedRating;
 }
 
-addLogBtn.addEventListener('click', () => {
+function initializeAddLogForm() {
+	document.getElementById('bookInput').value = '';
+	document.getElementById('authorInput').value = '';
+	setSelectedRating(0);
+}
+
+addLogBtn.addEventListener('click', async () => {
 	const log = {
 		book: bookInput.value,
 		author: authorInput.value,
 		rate: getSelectedRating(),
 	};
-	if (log.book && log.author) {
-		const li = document.createElement('li');
-		li.textContent = `${log.book} by ${log.author} - ${log.rate} eggs`;
-		bookList.appendChild(li);
-		bookInput.value = '';
-		authorInput.value = '';
-		setSelectedRating(0);
+	if (log.book && log.author && log.rate) {
+		await addLogToFirestore(log);
+		initializeAddLogForm();
 	}
 });
+
+async function addLogToFirestore(log) {
+	await addDoc(collection(db, 'logs'), {
+		book: log.book,
+		author: log.author,
+		rate: log.rate,
+	});
+}
+
+async function renderTasks() {
+	let logs = await getLogsFromFirestore();
+	document.getElementById('book-list').innerHTML = '';
+
+	logs.forEach((log, index) => {
+		const logItem = document.createElement('li');
+		logItem.id = log.id;
+		logItem.textContent = `${logItem.data().book} by ${logItem.data().author} - ${logItem.data().rate} eggs`;
+		bookList.appendChild(logItem);
+	});
+}
+
+async function getLogsFromFirestore() {
+	let data = await getDocs(collection(db, 'logs'));
+	let userData = [];
+	data.forEach((doc) => {
+		userData.push(doc);
+	});
+	return userData;
+}
 
 document.addEventListener('DOMContentLoaded', (event) => {
 	const bookInput = document.getElementById('bookInput');
@@ -70,7 +117,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 			const log = {
 				book: bookInput.value,
 				author: authorInput.value,
-				rate: getSelectedRating(),
+				rate: rate,
 			};
 			if (log.book && log.author) {
 				const li = document.createElement('li');
@@ -83,3 +130,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
 		});
 	}
 });
+
+const sw = new URL('service-worker.js', import.meta.url);
+if ('serviceWorker' in navigator) {
+	const s = navigator.serviceWorker;
+	s.register(sw.href, {
+		scope: '/Egg-Your-Books/',
+	})
+		.then((_) => console.log('Service Worker Registered for scope:', sw.href, 'with', import.meta.url))
+		.catch((err) => console.error('Service Worker Error:', err));
+}
