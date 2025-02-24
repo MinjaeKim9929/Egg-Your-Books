@@ -1,6 +1,8 @@
 import { initializeApp } from 'firebase/app';
 import { doc, getDocs, addDoc, updateDoc, getFirestore, collection } from 'firebase/firestore';
+import log from 'loglevel';
 
+// Setup Firebase
 const firebaseConfig = {
 	apiKey: 'AIzaSyBv3223D49UTgNIlhbbqzCPfRKSGCO5GuU',
 	authDomain: 'egg-your-books.firebaseapp.com',
@@ -14,6 +16,13 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// Setup Loglevel
+log.setLevel('info');
+log.info('Application started');
+log.debug('Debugging information');
+log.error('An error occurred');
+
+// Rating System
 const eggs = document.querySelectorAll('.egg');
 
 eggs.forEach((egg) => {
@@ -84,7 +93,7 @@ async function addLogToFirestore(log) {
 	});
 }
 
-async function renderTasks() {
+async function renderLogs() {
 	let logs = await getLogsFromFirestore();
 	document.getElementById('book-list').innerHTML = '';
 
@@ -131,6 +140,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 	}
 });
 
+// Service worker
 const sw = new URL('service-worker.js', import.meta.url);
 if ('serviceWorker' in navigator) {
 	const s = navigator.serviceWorker;
